@@ -1,0 +1,48 @@
+{
+  "id": "rust",
+  "version": "0.0.0",
+  "name": "Rust",
+  "description": "Installs rustup and Rust.",
+  "containerEnv": {
+    "CARGO_HOME": "/usr/local/cargo",
+    "RUSTUP_HOME": "/usr/local/rustup",
+    "PATH": "/usr/local/cargo/bin:${PATH}"
+  },
+  "capAdd": [
+    "SYS_PTRACE"
+  ],
+  "securityOpt": [
+    "seccomp=unconfined"
+  ],
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "stable",
+      "description": "Rust toolchain to install. Use 'none' to install rustup only."
+    },
+    "profile": {
+      "type": "string",
+      "enum": [
+        "minimal",
+        "default",
+        "complete"
+      ],
+      "default": "minimal",
+      "description": "Rustup install profile."
+    },
+    "components": {
+      "type": "string",
+      "default": "rust-analyzer,rust-src,rustfmt,clippy",
+      "description": "Comma-separated rustup components to add. Empty string or 'none' to skip."
+    },
+    "targets": {
+      "type": "string",
+      "default": "",
+      "description": "Comma-separated rustup targets to add (e.g., wasm32-unknown-unknown,x86_64-unknown-linux-musl)."
+    }
+  },
+  "installsAfter": [
+    "../../features/apt",
+    "../../features/user"
+  ]
+}

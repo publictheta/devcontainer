@@ -1,0 +1,31 @@
+{
+  "id": "python",
+  "version": "0.0.0",
+  "name": "Python",
+  "description": "Installs uv, Python, and Astral's native-binary Python tools (ruff, ty).",
+  "containerEnv": {
+    "UV_LINK_MODE": "copy",
+    "UV_PYTHON_INSTALL_DIR": "/usr/local/share/uv/python"
+  },
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "latest",
+      "description": "Python version to install via uv. 'latest' installs the newest stable, 'none' skips (uv still installed)."
+    },
+    "ruffVersion": {
+      "type": "string",
+      "default": "latest",
+      "description": "ruff version tag (e.g., 0.15.10, no v prefix). Use 'none' to skip."
+    },
+    "tyVersion": {
+      "type": "string",
+      "default": "latest",
+      "description": "ty version tag (e.g., 0.0.30, no v prefix). Use 'none' to skip."
+    }
+  },
+  "installsAfter": [
+    "../../features/apt",
+    "../../features/user"
+  ]
+}

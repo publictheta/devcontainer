@@ -1,0 +1,13 @@
+{
+  "id": "apt",
+  "version": "0.0.0",
+  "name": "APT",
+  "description": "Installs base system packages.",
+  "options": {
+    "packages": {
+      "type": "string",
+      "default": "",
+      "description": "Additional space-separated packages to install."
+    }
+  }
+}

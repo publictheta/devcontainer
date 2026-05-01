@@ -1,0 +1,86 @@
+{
+  "id": "tools",
+  "version": "0.0.0",
+  "name": "CLI Tools",
+  "description": "Installs modern CLI tools as native binaries (bat, delta, eza, fd, fzf, gh, hyperfine, just, lazygit, neovim, ripgrep, shellcheck, shfmt, yazi, zoxide).",
+  "options": {
+    "batVersion": {
+      "type": "string",
+      "default": "latest",
+      "description": "bat version tag. Use 'none' to skip."
+    },
+    "deltaVersion": {
+      "type": "string",
+      "default": "latest",
+      "description": "delta version tag (no v prefix). Use 'none' to skip."
+    },
+    "ezaVersion": {
+      "type": "string",
+      "default": "latest",
+      "description": "eza version tag. Use 'none' to skip."
+    },
+    "fdVersion": {
+      "type": "string",
+      "default": "latest",
+      "description": "fd version tag. Use 'none' to skip."
+    },
+    "fzfVersion": {
+      "type": "string",
+      "default": "latest",
+      "description": "fzf version tag. Use 'none' to skip."
+    },
+    "ghVersion": {
+      "type": "string",
+      "default": "latest",
+      "description": "gh version tag. Use 'none' to skip."
+    },
+    "hyperfineVersion": {
+      "type": "string",
+      "default": "latest",
+      "description": "hyperfine version tag. Use 'none' to skip."
+    },
+    "justVersion": {
+      "type": "string",
+      "default": "latest",
+      "description": "just version tag. Use 'none' to skip."
+    },
+    "lazygitVersion": {
+      "type": "string",
+      "default": "latest",
+      "description": "lazygit version tag. Use 'none' to skip."
+    },
+    "neovimVersion": {
+      "type": "string",
+      "default": "latest",
+      "description": "neovim version tag. Use 'none' to skip."
+    },
+    "ripgrepVersion": {
+      "type": "string",
+      "default": "latest",
+      "description": "ripgrep version tag (no v prefix). Use 'none' to skip."
+    },
+    "shellcheckVersion": {
+      "type": "string",
+      "default": "latest",
+      "description": "shellcheck version tag. Use 'none' to skip."
+    },
+    "shfmtVersion": {
+      "type": "string",
+      "default": "latest",
+      "description": "shfmt version tag. Use 'none' to skip."
+    },
+    "yaziVersion": {
+      "type": "string",
+      "default": "latest",
+      "description": "yazi version tag. Use 'none' to skip."
+    },
+    "zoxideVersion": {
+      "type": "string",
+      "default": "latest",
+      "description": "zoxide version tag. Use 'none' to skip."
+    }
+  },
+  "installsAfter": [
+    "../../features/apt"
+  ]
+}

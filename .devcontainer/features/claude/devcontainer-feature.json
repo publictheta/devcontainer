@@ -1,0 +1,17 @@
+{
+  "id": "claude",
+  "version": "0.0.0",
+  "name": "Claude Code",
+  "description": "Installs Claude Code CLI.",
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "latest",
+      "description": "Claude Code version to install (e.g., latest, stable, 1.0.0). Use 'none' to skip."
+    }
+  },
+  "installsAfter": [
+    "../../features/apt",
+    "../../features/user"
+  ]
+}

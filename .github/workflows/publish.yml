@@ -1,0 +1,89 @@
+name: Publish
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+    paths:
+      - ".devcontainer/features/**"
+      - ".devcontainer/images/**"
+      - ".github/workflows/publish.yml"
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 1 * *"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  IMAGE: ghcr.io/${{ github.repository }}
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            platform: linux/amd64
+            suffix: amd64
+          - runner: ubuntu-24.04-arm
+            platform: linux/arm64
+            suffix: arm64
+    runs-on: ${{ matrix.runner }}
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: docker/setup-buildx-action@v4
+
+      - uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: devcontainers/ci@v0.3
+        with:
+          configFile: .devcontainer/images/default/devcontainer.json
+          imageName: ${{ env.IMAGE }}
+          imageTag: build-${{ matrix.suffix }}
+          cacheFrom: ${{ env.IMAGE }}:latest
+          platform: ${{ matrix.platform }}
+          push: always
+
+  merge:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - uses: docker/metadata-action@v6
+        id: meta
+        with:
+          images: ${{ env.IMAGE }}
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
+
+      - uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/setup-buildx-action@v4
+
+      # No official action exists for imagetools create.
+      # docker/github-builder handles this internally but is
+      # incompatible with devcontainers/ci.
+      - name: Create multi-arch manifests
+        run: |
+          docker buildx imagetools create \
+            $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+            "${IMAGE}:build-amd64" \
+            "${IMAGE}:build-arm64"

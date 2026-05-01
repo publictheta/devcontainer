@@ -1,0 +1,19 @@
+{
+  "name": "publictheta/devcontainer",
+  "image": "debian:stable-slim",
+  "features": {
+    "../../features/apt": {},
+    "../../features/user": {},
+    "../../features/tools": {},
+    "../../features/claude": {},
+    "../../features/node": {},
+    "../../features/python": {},
+    "../../features/rust": {},
+    "../../features/zsh": {}
+  },
+  "updateRemoteUserUID": true,
+  "remoteUser": "dev",
+  "containerEnv": {
+    "DEVCONTAINER": "true"
+  }
+}

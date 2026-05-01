@@ -1,0 +1,33 @@
+{
+  "id": "user",
+  "version": "0.0.0",
+  "name": "User",
+  "description": "Creates a user and sets up the home directory.",
+  "containerEnv": {
+    "LANG": "en_US.UTF-8",
+    "LC_ALL": "en_US.UTF-8",
+    "TZ": "Etc/UTC",
+    "PATH": "/home/dev/.local/bin:${PATH}"
+  },
+  "entrypoint": "/usr/local/share/devcontainer-user-entrypoint.sh",
+  "options": {
+    "userGid": {
+      "type": "string",
+      "default": "1000",
+      "description": "The GID to assign to the user."
+    },
+    "userUid": {
+      "type": "string",
+      "default": "1000",
+      "description": "The UID to assign to the user."
+    },
+    "locales": {
+      "type": "string",
+      "default": "en_US.UTF-8 ja_JP.UTF-8",
+      "description": "Space-separated locales to generate. The first one is set as LANG."
+    }
+  },
+  "installsAfter": [
+    "../../features/apt"
+  ]
+}

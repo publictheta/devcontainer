@@ -1,0 +1,21 @@
+{
+  "id": "node",
+  "version": "0.0.0",
+  "name": "Node.js",
+  "description": "Installs fnm and Node.js with corepack.",
+  "containerEnv": {
+    "FNM_DIR": "/usr/local/share/fnm",
+    "PATH": "/usr/local/share/fnm/aliases/default/bin:${PATH}"
+  },
+  "options": {
+    "version": {
+      "type": "string",
+      "default": "latest",
+      "description": "Node.js version to install (latest, lts, or specific version). Use 'none' to install fnm only."
+    }
+  },
+  "installsAfter": [
+    "../../features/apt",
+    "../../features/user"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "zsh",
+  "version": "0.0.0",
+  "name": "Zsh",
+  "description": "Installs zsh and sets up completions, autosuggestions, and prompt.",
+  "options": {
+    "autosuggestionsVersion": {
+      "type": "string",
+      "default": "latest",
+      "description": "zsh-autosuggestions version tag (e.g., v0.7.1). Use 'none' to skip."
+    }
+  },
+  "installsAfter": [
+    "../../features/apt",
+    "../../features/user"
+  ]
+}
